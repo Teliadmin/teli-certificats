@@ -23,10 +23,11 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 8px; }
 .cert .frame2 { position: absolute; inset: 4.2cqw; border: .18cqw solid var(--gold); border-radius: 1.4cqw; }
 .cert .inner { position: absolute; inset: 7cqw 9cqw; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .cert .c-logo { display: flex; align-items: center; gap: 1.2cqw; margin-bottom: 1.2cqw; }
-.cert .c-logo .m { width: 4.6cqw; height: 4.6cqw; border-radius: 1.4cqw; background: var(--accent); color: #fff; font-weight: 800; font-size: 2.6cqw; display: flex; align-items: center; justify-content: center; }
+.cert .c-logo .m { width: 4.6cqw; height: 4.6cqw; border-radius: 1.4cqw; overflow: hidden; background: var(--accent); color: #fff; font-weight: 800; font-size: 2.6cqw; display: flex; align-items: center; justify-content: center; }
+.cert .c-logo .m img { width: 100%; height: 100%; object-fit: contain; border-radius: 1.2cqw; }
 .cert .c-logo .wm b { font-weight: 800; font-size: 2.5cqw; letter-spacing: .1cqw; line-height: 1; display: block; }
 .cert .c-logo .wm span { font-size: 1.05cqw; letter-spacing: .25cqw; color: var(--sub); text-transform: uppercase; }
-.cert img.logo-img { height: 7cqw; object-fit: contain; margin-bottom: 1cqw; }
+.cert img.logo-img { height: 7cqw; object-fit: contain; margin-bottom: 1cqw; border-radius: 1.2cqw; }
 .cert .c-title { font-family: "Playfair Display", serif; font-weight: 800; font-size: 5.2cqw; letter-spacing: .15cqw; color: #1a1714; line-height: 1; margin-top: .6cqw; }
 .cert .c-rule { width: 9cqw; height: .35cqw; background: var(--gold); border-radius: 999px; margin: 1.6cqw 0; }
 .cert .c-sub { font-size: 1.7cqw; color: var(--sub); letter-spacing: .05cqw; }

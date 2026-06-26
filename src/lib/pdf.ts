@@ -1,6 +1,7 @@
 import { jsPDF } from "jspdf";
 import type { CertData } from "../types";
 import { cap, fillTpl, fullNameOf } from "./helpers";
+import Logo from "../assets/Logo AML.png"
 
 type RGB = [number, number, number];
 
@@ -12,6 +13,26 @@ function hexToRgb(h: string): RGB {
 
 function imgFmt(dataUrl: string): "PNG" | "JPEG" {
   return /^data:image\/png/i.test(dataUrl) ? "PNG" : "JPEG";
+}
+
+/** Ajoute une image avec des coins légèrement arrondis (via masque de découpe). */
+function addRoundedImage(
+  doc: jsPDF,
+  img: string,
+  fmt: "PNG" | "JPEG",
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number,
+) {
+  doc.saveGraphicsState();
+  // style `null` => définit seulement le tracé, sans le peindre, pour servir de masque.
+  (doc as unknown as { roundedRect: (...a: unknown[]) => void }).roundedRect(x, y, w, h, r, r, null);
+  (doc as unknown as { clip: () => void }).clip();
+  (doc as unknown as { discardPath: () => void }).discardPath();
+  doc.addImage(img, fmt, x, y, w, h);
+  doc.restoreGraphicsState();
 }
 
 function starPDF(doc: jsPDF, cx: number, cy: number, outer: number, inner: number, points: number, color: string) {
@@ -65,7 +86,7 @@ export function drawCertificate(doc: jsPDF, d: CertData, qrData: string | null):
     doc.setFillColor(ar, ag, ab); doc.rect(0, 0, W, 6, "F");
     doc.setFillColor(ar, ag, ab); doc.rect(0, 0, 12, H, "F");
     const LX = 26;
-    if (d.logo) { const w = 16 * d.logoRatio; doc.addImage(d.logo, imgFmt(d.logo), LX, 20, w, 16); }
+    if (d.logo) { const w = 16 * d.logoRatio; addRoundedImage(doc, d.logo, imgFmt(d.logo), LX, 20, w, 16, 2); }
     else {
       doc.setFillColor(ar, ag, ab); doc.roundedRect(LX, 20, 12, 12, 3, 3, "F");
       doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255); doc.setFontSize(13); doc.text("T", LX + 6, 28.5, { align: "center" });
@@ -100,10 +121,9 @@ export function drawCertificate(doc: jsPDF, d: CertData, qrData: string | null):
   doc.setDrawColor(ar, ag, ab); doc.setLineWidth(1.6); doc.roundedRect(10, 10, W - 20, H - 20, 3, 3, "S");
   doc.setDrawColor(224, 161, 0); doc.setLineWidth(0.4); doc.roundedRect(14, 14, W - 28, H - 28, 2, 2, "S");
 
-  if (d.logo) { const w = 16 * d.logoRatio; doc.addImage(d.logo, imgFmt(d.logo), W / 2 - w / 2, 24, w, 16); }
+  if (d.logo) { const w = 16 * d.logoRatio; addRoundedImage(doc, d.logo, imgFmt(d.logo), W / 2 - w / 2, 24, w, 16, 2); }
   else {
-    doc.setFillColor(ar, ag, ab); doc.roundedRect(W / 2 - 22, 26, 11, 11, 3, 3, "F");
-    doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.text("T", W / 2 - 16.5, 33.5, { align: "center" });
+    addRoundedImage(doc, Logo, "PNG", W / 2 - 22, 26, 11, 11, 1.6);
     doc.setTextColor(26, 23, 20); doc.setFontSize(15); doc.text("TELI", W / 2 - 8, 31);
     doc.setFont("helvetica", "normal"); doc.setTextColor(138, 129, 120); doc.setFontSize(6.5); doc.text("LEARN AFRICAN LANGUAGES", W / 2 - 8, 35.5);
   }
@@ -121,20 +141,21 @@ export function drawCertificate(doc: jsPDF, d: CertData, qrData: string | null):
 
   const footY = 176;
   if (d.sign) { const w = 10 * d.signRatio; doc.addImage(d.sign, imgFmt(d.sign), 70 - w / 2, footY - 18, w, 10); }
-  doc.setDrawColor(205, 199, 189); doc.setLineWidth(0.3); doc.line(45, footY - 4, 95, footY - 4);
   doc.setFont("times", "normal"); doc.setTextColor(26, 23, 20); doc.setFontSize(12); doc.text(d.signName, 70, footY, { align: "center" });
-  doc.setFont("helvetica", "normal"); doc.setTextColor(138, 129, 120); doc.setFontSize(8); doc.text(d.signRole.toUpperCase(), 70, footY + 4.5, { align: "center" });
+  doc.setDrawColor(205, 199, 189); doc.setLineWidth(0.3); doc.line(45, footY + 3, 95, footY + 3);
+  // doc.setFont("helvetica", "normal"); doc.setTextColor(138, 129, 120); doc.setFontSize(8); doc.text(d.signRole.toUpperCase(), 70, footY + 4.5, { align: "center" });
 
   sealPDF(doc, W / 2, footY - 8, 17, accent, d.language);
 
-  doc.setDrawColor(205, 199, 189); doc.setLineWidth(0.3); doc.line(W - 95, footY - 4, W - 45, footY - 4);
+  
   doc.setFont("times", "normal"); doc.setTextColor(26, 23, 20); doc.setFontSize(12); doc.text(d.dateStr, W - 70, footY, { align: "center" });
-  doc.setFont("helvetica", "normal"); doc.setTextColor(138, 129, 120); doc.setFontSize(8); doc.text(d.location.toUpperCase(), W - 70, footY + 4.5, { align: "center" });
+  doc.setDrawColor(205, 199, 189); doc.setLineWidth(0.3); doc.line(W - 95, footY + 3, W - 45, footY + 3);
+  // doc.setFont("helvetica", "normal"); doc.setTextColor(138, 129, 120); doc.setFontSize(8); doc.text(d.location.toUpperCase(), W - 70, footY + 4.5, { align: "center" });
 
-  if (qrData) {
-    doc.addImage(qrData, "PNG", W - 34, 164, 15, 15);
-    doc.setFont("helvetica", "normal"); doc.setFontSize(5.5); doc.setTextColor(150, 143, 134); doc.text("Scanner pour vérifier", W - 26.5, 182, { align: "center" });
-  }
+  // if (qrData) {
+  //   doc.addImage(qrData, "PNG", W - 34, 164, 15, 15);
+  //   doc.setFont("helvetica", "normal"); doc.setFontSize(5.5); doc.setTextColor(150, 143, 134); doc.text("Scanner pour vérifier", W - 26.5, 182, { align: "center" });
+  // }
   doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(150, 143, 134);
-  doc.text(`Certificat N° ${d.id} · Vérifiable sur learning.teli-app.com`, W / 2, 192, { align: "center" });
+  // doc.text(`Certificat N° ${d.id} · Vérifiable sur learning.teli-app.com`, W / 2, 192, { align: "center" });
 }

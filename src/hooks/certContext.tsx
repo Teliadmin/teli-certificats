@@ -17,7 +17,7 @@ const INITIAL: CertState = {
   dateStr: todayFR(),
   title: "Certificat de Réussite",
   bodyTpl: "Pour avoir suivi et complété avec succès la formation de langue {langue} dispensée par la plateforme TELI.",
-  signName: "Operation Teli",
+  signName: "Teli",
   signRole: "Administrateur, TELI",
   location: "Cotonou, Bénin",
   idPrefix: "TELI",

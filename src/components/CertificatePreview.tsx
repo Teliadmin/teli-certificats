@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useCert } from "../hooks/certContext";
 import { cap, fillTpl } from "../lib/helpers";
+import Logo from "../assets/Logo AML.png"
 
 function starPts(cx: number, cy: number, outer: number, inner: number, points: number): string {
   const p: string[] = [];
@@ -50,11 +51,11 @@ export default function CertificatePreview() {
         <div className="inner">
           <div className="c-logo">
             {d.logo ? (
-              <img className="logo-img" src={d.logo} alt="logo" />
+              <img className="logo-img" src={Logo} alt="logo" />
             ) : (
               <>
-                <div className="m">T</div>
-                <div className="wm"><b>TELI</b><span>Learn African Languages</span></div>
+                <div className="m"><img src={Logo} alt="" className="rounded-md" /></div>
+                {/* <div className="wm"><b className="pr-28">TELI</b><span>Learn African Languages</span></div> */}
               </>
             )}
           </div>
@@ -67,18 +68,19 @@ export default function CertificatePreview() {
           <div className="c-foot">
             <div className="blk">
               {d.sign && <img className="sig-img" src={d.sign} alt="signature" />}
-              <div className="sigline" />
+              {/* <div className="sigline" /> */}
               <div className="sig-name">{d.signName}</div>
-              <div className="sig-role">{d.signRole}</div>
+              <div className="sigline" />
+              {/* <div className="sig-role">{d.signRole}</div> */}
             </div>
             <div className="seal"><Seal accent={d.accent} lang={d.language} /></div>
             <div className="blk">
               <div className="date-val">{d.dateStr}</div>
               <div className="sigline" />
-              <div className="date-lbl">{d.location}</div>
+              {/* <div className="date-lbl">{d.location}</div> */}
             </div>
           </div>
-          <div className="c-id">Certificat N° {d.id} · learning.teli-app.com</div>
+          {/* <div className="c-id">Certificat N° {d.id} · learning.teli-app.com</div> */}
         </div>
       </motion.div>
     </div>

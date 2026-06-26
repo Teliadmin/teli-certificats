@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 import { C } from "../theme";
+import Logo from "../assets/Logo AML.png"
 
 export default function Topbar() {
   return (
@@ -9,14 +10,14 @@ export default function Topbar() {
         initial={{ scale: 0.8, rotate: -8, opacity: 0 }}
         animate={{ scale: 1, rotate: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 320, damping: 18 }}
-        className="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-lg shadow-glow"
-        style={{ background: `linear-gradient(135deg, ${C.coral}, ${C.coralDeep})` }}
+        className="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-lg"
+        // style={{ background: `linear-gradient(135deg, ${C.coral}, ${C.coralDeep})` }}
       >
-        T
+        <img src={Logo} alt="" className="rounded-lg" />
       </motion.div>
       <div className="leading-tight">
         <b className="text-[17px] tracking-tight block">TELI</b>
-        <span className="text-[11px] text-sub">Générateur de certificats</span>
+        <span className="text-[11px] text-sub">Plateforme d'apprentissage de langues africaines</span>
       </div>
       <div className="flex-1" />
       <span className="hidden sm:inline-flex items-center gap-1.5 text-[12px] font-bold text-coral bg-coral-soft px-3 py-1.5 rounded-full">
