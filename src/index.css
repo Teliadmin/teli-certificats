@@ -18,8 +18,18 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 8px; }
   border-radius: 8px; overflow: hidden; box-shadow: 0 18px 50px rgba(26,23,20,.18);
   transition: background .45s ease;
 }
+.cert.classique {
+  background:
+    radial-gradient(circle at 14% 26%, rgba(56, 114, 192, .13), transparent 22%),
+    radial-gradient(circle at 86% 30%, rgba(234, 117, 56, .13), transparent 24%),
+    radial-gradient(circle at 50% 17%, rgba(234, 117, 56, .10), transparent 14%),
+    radial-gradient(circle at 20% 74%, rgba(0, 158, 173, .13), transparent 20%),
+    radial-gradient(circle at 82% 72%, rgba(56, 114, 192, .11), transparent 22%),
+    radial-gradient(circle at 50% 88%, rgba(0, 158, 173, .10), transparent 16%),
+    #fcfaf5;
+}
 .cert * { transition: color .45s ease, background .45s ease, border-color .45s ease; }
-.cert .frame { position: absolute; inset: 3cqw; border: .5cqw solid var(--accent); border-radius: 2cqw; }
+.cert .frame { position: absolute; inset: 3cqw; border: .5cqw solid #3872C0; border-radius: 2cqw; }
 .cert .frame2 { position: absolute; inset: 4.2cqw; border: .18cqw solid var(--gold); border-radius: 1.4cqw; }
 .cert .inner { position: absolute; inset: 7cqw 9cqw; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .cert .c-logo { display: flex; align-items: center; gap: 1.2cqw; margin-bottom: 1.2cqw; }
@@ -41,14 +51,15 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 8px; }
 .cert .c-foot .sig-role, .cert .c-foot .date-lbl { font-size: 1.25cqw; color: var(--sub); text-transform: uppercase; letter-spacing: .1cqw; margin-top: .4cqw; }
 .cert .c-foot .date-val { font-family: "Playfair Display", serif; font-size: 2.1cqw; color: #1a1714; line-height: 1; }
 .cert img.sig-img { height: 5cqw; object-fit: contain; margin-bottom: .4cqw; }
+.cert .sig-default { display: block; width: 18cqw; height: auto; margin: .8cqw auto 0; }
 .cert .seal { width: 13cqw; height: 13cqw; position: relative; flex: 0 0 auto; margin: 0 2cqw; }
 .cert .c-id { position: absolute; left: 0; right: 0; bottom: 4cqw; text-align: center; font-size: 1.15cqw; color: var(--sub); letter-spacing: .05cqw; }
 
 /* ---- Modèle moderne ---- */
 .cert.moderne { background: #fff; }
 .cert.moderne .frame, .cert.moderne .frame2 { display: none; }
-.cert.moderne::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5cqw; background: var(--accent); transition: background .45s ease; }
-.cert.moderne::after { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 1.2cqw; background: var(--accent); transition: background .45s ease; }
+.cert.moderne::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5cqw; background: #3872C0; transition: background .45s ease; }
+.cert.moderne::after { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 1.2cqw; background: #3872C0; transition: background .45s ease; }
 .cert.moderne .inner { inset: 9cqw 8cqw 9cqw 13cqw; align-items: flex-start; text-align: left; }
 .cert.moderne .c-rule { align-self: flex-start; }
 .cert.moderne .c-nameline { align-self: flex-start; margin-left: 0; }

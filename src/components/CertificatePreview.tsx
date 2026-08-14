@@ -71,7 +71,18 @@ export default function CertificatePreview() {
               {/* <div className="sigline" /> */}
               <div className="sig-name">{d.signName}</div>
               <div className="sigline" />
-              {/* <div className="sig-role">{d.signRole}</div> */}
+              {!d.sign && (
+                <svg className="sig-default" viewBox="0 0 104 38" fill="none">
+                  <path
+                    d="M3.2 25.8 C0.4 17.4 6 9 14.4 11.8 C17.2 20.2 17.2 17.4 22.8 14.6 C25.6 20.2 25.6 6.2 31.2 9 C36.8 14.6 34 34.2 25.6 31.4 C31.2 31.4 34 20.2 39.6 17.4 C50.8 17.4 67.6 14.6 98.4 6.2"
+                    stroke="#232038" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  />
+                  <path
+                    d="M28.4 11.8 C34 17.4 28.4 34.2 22.8 31.4"
+                    stroke="#232038" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </div>
             <div className="seal"><Seal accent={d.accent} lang={d.language} /></div>
             <div className="blk">
